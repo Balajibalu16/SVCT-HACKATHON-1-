@@ -1,0 +1,50 @@
+{
+  "disclaimer": "General guidance only. Consult a clinician for personal dietary advice.",
+  "symptoms": {
+    "fever": [
+      "Rice porridge (kanji)",
+      "Banana (Fruit)",
+      "Watermelon (Fruit)",
+      "Steamed broccoli (Vegetable)",
+      "Carrot soup (Vegetable)",
+      "Coconut water",
+      "Soft idli"
+    ],
+    "cough_sore_throat": [
+      "Warm ginger tea",
+      "Soft pear (Fruit)",
+      "Baked apple (Fruit)",
+      "Steamed sweet potato (Vegetable)",
+      "Boiled spinach (Vegetable)",
+      "Honey and lemon water",
+      "Oatmeal"
+    ],
+    "nausea": [
+      "Saltine crackers",
+      "Applesauce (Fruit)",
+      "Sliced banana (Fruit)",
+      "Plain baked potato (Vegetable)",
+      "Steamed squash (Vegetable)",
+      "Ginger tea",
+      "Plain toast"
+    ],
+    "diarrhea": [
+      "White rice",
+      "Banana (Fruit)",
+      "Puréed apple (Fruit)",
+      "Boiled carrots (Vegetable)",
+      "Cooked zucchini (Vegetable)",
+      "Plain toast",
+      "Clear broth"
+    ],
+    "fatigue": [
+      "Complex carbohydrates (quinoa)",
+      "Oranges (Fruit)",
+      "Berries (Fruit)",
+      "Roasted bell peppers (Vegetable)",
+      "Steamed kale (Vegetable)",
+      "Lean protein",
+      "Light dal"
+    ]
+  }
+}

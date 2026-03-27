@@ -1,0 +1,168 @@
+{
+  "serviceCategories": [
+    {
+      "name": "Home Services",
+      "description": "Book at-home support such as nurse visits, elder assistance, and sample collection.",
+      "cta": "Explore Home Care",
+      "availability": "24/7 on-call",
+      "highlights": ["Nurse visits", "Vitals checks", "Elder support"]
+    },
+    {
+      "name": "Food Services",
+      "description": "Find nearby restaurants and simple meal options that fit recovery and hydration needs.",
+      "cta": "Find Food Options",
+      "availability": "Open now",
+      "highlights": ["Light meals", "Soup options", "Low spice"]
+    },
+    {
+      "name": "Tablets & Medicines",
+      "description": "View common over-the-counter support options and hospital-linked pharmacy access.",
+      "cta": "Check Medicine Access",
+      "availability": "Delivery in 60 mins",
+      "highlights": ["OTC basics", "Hospital pharmacy", "Home delivery"]
+    },
+    {
+      "name": "Nearby Hospitals",
+      "description": "Quickly review nearby hospitals, urgent care centers, and ambulance-ready locations.",
+      "cta": "View Hospitals",
+      "availability": "Emergency ready",
+      "highlights": ["Emergency unit", "Diagnostics", "Specialists"]
+    },
+    {
+      "name": "Diagnostics & Labs",
+      "description": "Locate nearby labs for tests, imaging, and sample collection.",
+      "cta": "Find Diagnostics",
+      "availability": "Same-day reports",
+      "highlights": ["Blood tests", "Imaging", "Home sample"]
+    },
+    {
+      "name": "Telehealth",
+      "description": "Talk to a doctor online for quick guidance and prescriptions.",
+      "cta": "Start Teleconsult",
+      "availability": "Doctors online",
+      "highlights": ["Video consult", "Chat support", "Prescriptions"]
+    }
+  ],
+  "nearbyResources": [
+    {
+      "type": "hospital",
+      "name": "CityCare Multi-Specialty Hospital",
+      "distance": "1.8 km away",
+      "description": "24/7 emergency support, diagnostics, and inpatient care.",
+      "actionLabel": "Call Hospital",
+      "rating": "4.6",
+      "hours": "Open 24 hours",
+      "phone": "+1 555-0118",
+      "address": "102 Riverfront Road",
+      "services": ["Emergency", "ICU", "Radiology"],
+      "waitTime": "Approx 20 mins",
+      "insurance": ["Cashless", "Major insurers"],
+      "languages": ["English", "Hindi"],
+      "verified": true
+    },
+    {
+      "type": "food",
+      "name": "Fresh Bowl Kitchen",
+      "distance": "0.9 km away",
+      "description": "Light soups, rice bowls, and hydration-friendly meals.",
+      "actionLabel": "Order Food",
+      "rating": "4.4",
+      "hours": "Open until 10:30 PM",
+      "phone": "+1 555-0141",
+      "address": "88 Lakeview Avenue",
+      "deliveryTime": "25-40 mins",
+      "dietTags": ["Low spice", "Vegetarian", "Hydration"]
+    },
+    {
+      "type": "home",
+      "name": "Rapid Home Nurse Visit",
+      "distance": "Available in your area",
+      "description": "On-demand nurse visits, vitals checks, and elder support at home.",
+      "actionLabel": "Book Visit",
+      "rating": "4.8",
+      "hours": "24/7 on-call",
+      "phone": "+1 555-0102",
+      "address": "Home service coverage",
+      "nurseContact": "Nurse Anika Rao",
+      "services": ["Vitals check", "Elder care", "Sample collection"],
+      "responseTime": "45-60 mins",
+      "verified": true
+    },
+    {
+      "type": "medicine",
+      "name": "GreenCross Pharmacy",
+      "distance": "1.2 km away",
+      "description": "Common tablets, fever care items, and home delivery support.",
+      "actionLabel": "Open Pharmacy",
+      "rating": "4.5",
+      "hours": "Open until 11:00 PM",
+      "phone": "+1 555-0166",
+      "address": "14 Market Street",
+      "deliveryTime": "45-60 mins",
+      "services": ["OTC tablets", "Thermometers", "Delivery"],
+      "insurance": ["Cashback offers"],
+      "verified": true
+    },
+    {
+      "type": "diagnostics",
+      "name": "Prime Diagnostics Lab",
+      "distance": "2.1 km away",
+      "description": "Blood tests, imaging, and same-day digital reports.",
+      "actionLabel": "Book Test",
+      "rating": "4.7",
+      "hours": "Open until 9:00 PM",
+      "phone": "+1 555-0188",
+      "address": "210 Central Plaza",
+      "services": ["Blood tests", "X-ray", "ECG"],
+      "waitTime": "Approx 15 mins"
+    },
+    {
+      "type": "telehealth",
+      "name": "HealNow Teleconsult",
+      "distance": "Online",
+      "description": "Talk to a doctor online in minutes for quick guidance.",
+      "actionLabel": "Start Video Call",
+      "rating": "4.6",
+      "hours": "8:00 AM - 12:00 AM",
+      "phone": "+1 555-0199",
+      "address": "Virtual care",
+      "languages": ["English", "Hindi", "Tamil"],
+      "responseTime": "10-20 mins"
+    }
+  ],
+  "scenarios": [
+    {
+      "trigger": "headache",
+      "conditions": [
+        {"name": "Tension Headache", "probability": "High", "description": "Mild to moderate pain that feels like a tight band around your head."},
+        {"name": "Migraine", "probability": "Medium", "description": "Severe throbbing pain typically on one side of the head, often accompanied by nausea."},
+        {"name": "Sinus Infection", "probability": "Low", "description": "Pain and pressure around your eyes, cheeks, and forehead."}
+      ],
+      "urgency": "Self-care",
+      "actions": ["Rest in a quiet, dark room", "Stay hydrated", "Consider over-the-counter pain relief", "Monitor symptoms"],
+      "recommendedServices": ["home", "food", "medicine", "telehealth", "diagnostics"]
+    },
+    {
+      "trigger": "cough",
+      "conditions": [
+        {"name": "Viral Upper Respiratory Infection", "probability": "High", "description": "Common cold characterized by coughing, sneezing, and sore throat."},
+        {"name": "Allergies", "probability": "Medium", "description": "Immune response to environmental triggers causing a persistent dry cough."},
+        {"name": "Bronchitis", "probability": "Low", "description": "Inflammation of the bronchial tubes causing a productive cough."}
+      ],
+      "urgency": "See doctor soon",
+      "actions": ["Rest and fluids", "Use a humidifier", "Try honey for soothing", "If cough persists over 2 weeks, consult a physician"],
+      "recommendedServices": ["hospital", "food", "medicine", "telehealth", "diagnostics"]
+    },
+    {
+      "trigger": "default",
+      "conditions": [
+        {"name": "Possible Viral Illness", "probability": "Medium", "description": "A general set of symptoms matching a common viral illness."},
+        {"name": "Fatigue/Stress Response", "probability": "Medium", "description": "Physical manifestation of prolonged stress or lack of sleep."},
+        {"name": "Nutritional Deficiency", "probability": "Low", "description": "Symptoms related to lacking essential vitamins or minerals."}
+      ],
+      "urgency": "See doctor soon",
+      "actions": ["Monitor symptoms closely", "Schedule a primary care visit if symptoms persist", "Maintain good hydration and rest"],
+      "recommendedServices": ["hospital", "home", "medicine", "telehealth", "diagnostics"]
+    }
+  ]
+}

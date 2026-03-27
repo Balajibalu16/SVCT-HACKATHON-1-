@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SymptomSense AI - Health Intake MVP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            health: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' },
+            navy: { 700: '#334155', 800: '#1e293b', 900: '#0f172a' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans transition-colors duration-300">
+  
+  <nav class="bg-white border-b dark:bg-slate-800 dark:border-slate-700 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex items-center gap-2 text-health-600 dark:text-health-500">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.48 12H2"/></svg>
+          <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">SymptomSense <span class="text-health-500">AI</span></span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button onclick="toggleDarkMode()" class="text-slate-500 hover:text-navy-900 dark:text-slate-400 dark:hover:text-white transition-colors" title="Toggle Dark Mode">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+          </button>
+          <button onclick="document.getElementById('chat-modal').classList.remove('hidden')" class="px-5 py-2 rounded-full font-medium text-white bg-health-600 hover:bg-health-700 shadow-sm transition-colors text-sm">
+            Start Assessment
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4 shadow-sm">
+    <div class="max-w-7xl mx-auto flex items-start sm:items-center gap-3">
+      <svg class="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5 sm:mt-0" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <p class="text-sm text-red-800 dark:text-red-300">
+        <strong>MEDICAL EMERGENCY:</strong> If experiencing chest pain, difficulty breathing, stroke signs, or severe bleeding, call 911 immediately. This is not a diagnostic tool.
+      </p>
+    </div>
+  </div>
+
+  <div class="relative pt-24 pb-48 border-b dark:border-slate-800 overflow-hidden group cursor-default">
+    <!-- Interactive Background Image -->
+    <div class="absolute inset-0 bg-[url('http://localhost:3000/hospital_hero.png')] bg-cover bg-center bg-fixed transition-transform duration-[10000ms] ease-out group-hover:scale-110"></div>
+    <!-- Cinematic Overlay Overlay -->
+    <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/70 transition-colors duration-[1000ms] group-hover:bg-slate-800/50 backdrop-blur-[2px]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-50 dark:from-slate-800/50 to-transparent"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 text-center z-10 text-white">
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 animate-fade-in drop-shadow-2xl text-white">
+        Intelligent Intake. <br class="hidden md:block"/> Powered by Logic.
+      </h1>
+      <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-100 mb-8 animate-fade-in drop-shadow-lg" style="animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards;">
+        Describe your symptoms to our rule-based AI engine and receive structured clinical direction, risk confidence, and nearby health resources.
+      </p>
+      <div class="flex justify-center gap-4 animate-fade-in drop-shadow-xl" style="animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards;">
+        <button onclick="document.getElementById('chat-modal').classList.remove('hidden')" class="inline-flex items-center px-8 py-4 font-bold rounded-full text-white bg-health-500 hover:bg-health-400 hover:scale-105 shadow-[0_0_30px_rgba(20,184,166,0.6)] transition-all cursor-pointer">
+          Start Check Now
+          <svg class="ml-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-y bg-slate-50 dark:bg-slate-800/50 dark:border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-health-600 dark:text-health-400 mb-4">Post-Assessment</p>
+        <h2 class="text-3xl font-bold text-navy-900 dark:text-white mb-4">Nearby Support Infrastructure</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12" id="offline-mocks-ui">
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm hover:border-health-400 transition-colors">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-health-50 dark:bg-health-900/30 text-health-600 dark:text-health-400 ring-1 ring-health-100 dark:ring-health-800">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13.22 2.416a2 2 0 0 0-2.511.057l-7 5.999A2 2 0 0 0 3 10v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7.354"/><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M15 6h6"/><path d="M18 3v6"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold">In-Home Nursing</h3>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Available remote nursing resources and rapid dispatch.</p>
+          <button onclick="document.getElementById('nurses-modal').classList.remove('hidden')" class="mt-6 font-semibold text-health-600">Open Directory</button>
+        </div>
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm hover:border-health-400 transition-colors">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-health-50 dark:bg-health-900/30 text-health-600 dark:text-health-400 ring-1 ring-health-100 dark:ring-health-800">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2zM9 14h6m-3-3v6"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold">Specialist Doctors</h3>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Find doctors by specialization and secure appointments.</p>
+          <button onclick="document.getElementById('doctors-modal').classList.remove('hidden')" class="mt-6 font-semibold text-health-600">Find a Doctor</button>
+        </div>
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm hover:border-health-400 transition-colors">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-health-50 dark:bg-health-900/30 text-health-600 dark:text-health-400 ring-1 ring-health-100 dark:ring-health-800">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 15 3.3 3.3a4.24 4.24 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold">Gentle Diet Options</h3>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Scientifically tailored symptom-friendly meal advice.</p>
+          <button onclick="document.getElementById('food-modal').classList.remove('hidden')" class="mt-6 font-semibold text-health-600">View Options</button>
+        </div>
+        <div class="rounded-3xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 shadow-sm hover:border-health-400 transition-colors">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-health-50 dark:bg-health-900/30 text-health-600 dark:text-health-400 ring-1 ring-health-100 dark:ring-health-800">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3 class="mt-5 text-xl font-bold">Health Precautions</h3>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">Immediate transmission prevention and symptom care limits.</p>
+          <button onclick="document.getElementById('precautions-modal').classList.remove('hidden')" class="mt-6 font-semibold text-health-600">View Guidelines</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main AI Chat Modal Engine -->
+  <div id="chat-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-4xl h-[90vh] sm:h-[80vh] flex flex-col overflow-hidden animate-fade-in relative">
+      <div class="bg-white dark:bg-slate-800 border-b dark:border-slate-700 py-3 px-4 flex justify-between z-10">
+        <div class="flex items-center gap-3">
+          <button onclick="document.getElementById('chat-modal').classList.add('hidden')" class="p-2 -ml-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          </button>
+          <div>
+            <h2 class="font-semibold flex items-center gap-2">Symptom Logic Engine <span class="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span></h2>
+            <p class="text-[11px] text-slate-500">Stand-by</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="chat-messages" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50 dark:bg-slate-900/50">
+        <div class="flex flex-col items-center justify-center h-full text-center space-y-4 opacity-70" id="empty-state">
+           <svg class="text-health-500" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+           <h3 class="font-semibold text-xl text-navy-900 dark:text-white">Start Guided Intake</h3>
+           <p class="text-sm max-w-md">Our backend engine will process your answers step-by-step.</p>
+           <button onclick="handleLogic('I want to start a symptom check')" class="px-6 py-2 bg-health-500 text-white font-bold rounded-full shadow-md mt-4">Begin Assessment</button>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 border-t dark:border-slate-700 p-4 pb-safe z-10">
+        <form id="intake-form" onsubmit="event.preventDefault(); handleLogic(document.getElementById('chat-input').value);" class="flex gap-2 relative max-w-4xl mx-auto">
+          <button type="button" id="mic-btn" class="absolute left-1.5 top-1.5 bottom-1.5 aspect-square bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors z-10" title="Voice Input">
+             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+          </button>
+          <input required id="chat-input" placeholder="Type answer or click mic..." class="flex-1 bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-full px-5 py-3 pl-14 pr-14 text-sm focus:outline-none focus:border-health-500 shadow-inner" autocomplete="off" />
+          <button type="submit" class="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-health-500 text-white rounded-full font-bold hover:bg-health-600 shadow-sm transition-colors text-xs tracking-wider uppercase">Send</button>
+        </form>
+      </div>
+
+      <!-- Engine Results Overlay -->
+      <div id="results-view" class="absolute inset-0 bg-slate-50 dark:bg-slate-900 z-20 hidden overflow-y-auto">
+        <div class="max-w-3xl mx-auto space-y-6 pt-12 px-4 pb-12">
+          
+          <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border dark:border-slate-700 overflow-hidden animate-fade-in">
+            <div class="bg-navy-900 dark:bg-slate-950 text-white p-6 pb-8 text-center relative overflow-hidden">
+              <button onclick="document.getElementById('results-view').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors" title="Close Assessment">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+              <h1 class="text-2xl font-bold mb-2 pr-8 pl-8">Engine Assessment Diagnostics</h1>
+              <p class="text-slate-300 text-sm max-w-lg mx-auto">Computed from symptom payload targeting the Logic engine.</p>
+            </div>
+
+            <div class="-mt-6 mb-6 px-6 relative z-10 flex justify-center">
+              <div id="res-urgency" class="inline-flex items-center gap-2 px-6 py-3 rounded-full shadow-lg border-2 font-bold bg-slate-100 text-slate-800">
+                Action Recommended
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 space-y-6">
+              <div class="p-5 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
+                <div class="flex items-center justify-between border-b dark:border-slate-700 pb-3 mb-3">
+                  <h4 class="font-bold text-lg text-slate-900 dark:text-white" id="res-condition">Condition Analyzed</h4>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Confidence</span>
+                    <div class="w-24 h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                       <div id="res-confidence" class="h-full bg-health-500" style="width: 50%;"></div>
+                    </div>
+                    <span id="res-confidence-text" class="text-xs font-bold text-health-600 dark:text-health-400">50%</span>
+                  </div>
+                </div>
+                <div>
+                   <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Reasoning Architecture</h5>
+                   <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 bg-white dark:bg-slate-800 p-3 rounded-lg border dark:border-slate-700" id="res-reasoning">Rule based mapping triggered this fallback reasoning node.</p>
+                   
+                   <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Clinical Advice</h5>
+                   <p class="text-sm font-medium text-slate-800 dark:text-white" id="res-advice">Default advice payload.</p>
+                </div>
+              </div>
+              
+              <div class="text-center pt-4">
+                 <button onclick="startOver()" class="text-slate-400 font-bold hover:text-health-500 uppercase tracking-widest text-xs">Clear State & Restart</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border dark:border-slate-700 p-5 mt-4">
+             <h3 class="font-bold border-b dark:border-slate-700 pb-2 mb-3 text-slate-800 dark:text-white flex items-center gap-2">
+               <svg class="text-health-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+               <span id="geo-status">Nearby Support Infrastructure</span>
+             </h3>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+               <div class="flex gap-4 p-4 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:border-health-400 transition-colors">
+                  <div class="h-10 w-10 text-health-600 bg-health-50 dark:bg-health-900/30 rounded-full flex items-center justify-center font-bold text-xl ring-1 ring-health-100 flex-shrink-0">🏥</div>
+                  <div>
+                     <div class="flex items-center justify-between mb-1">
+                       <h4 class="font-bold text-sm dark:text-white">CityCare Hospital</h4>
+                       <span class="text-[10px] uppercase font-bold text-health-600 tracking-wider">0.8 MI</span>
+                     </div>
+                     <p class="text-[11px] text-slate-500 mb-2 leading-relaxed">24/7 ER support, advanced diagnostics.</p>
+                     <button class="px-3 py-1.5 bg-navy-900 hover:bg-navy-800 text-white rounded-full text-[10px] font-bold shadow-sm transition-colors">Navigate GPS</button>
+                  </div>
+               </div>
+               <div class="flex gap-4 p-4 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:border-health-400 transition-colors">
+                  <div class="h-10 w-10 text-health-600 bg-health-50 dark:bg-health-900/30 rounded-full flex items-center justify-center font-bold text-xl ring-1 ring-health-100 flex-shrink-0">💊</div>
+                  <div>
+                     <div class="flex items-center justify-between mb-1">
+                       <h4 class="font-bold text-sm dark:text-white">GreenCross Pharmacy</h4>
+                       <span class="text-[10px] uppercase font-bold text-health-600 tracking-wider">1.2 MI</span>
+                     </div>
+                     <p class="text-[11px] text-slate-500 mb-2 leading-relaxed">Over-the-counter fever, cough meds.</p>
+                     <button class="px-3 py-1.5 bg-navy-900 hover:bg-navy-800 text-white rounded-full text-[10px] font-bold shadow-sm transition-colors">Order Delivery</button>
+                  </div>
+               </div>
+               <div class="flex gap-4 p-4 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:border-health-400 transition-colors">
+                  <div class="h-10 w-10 text-health-600 bg-health-50 dark:bg-health-900/30 rounded-full flex items-center justify-center font-bold text-xl ring-1 ring-health-100 flex-shrink-0">🍲</div>
+                  <div>
+                     <div class="flex items-center justify-between mb-1">
+                       <h4 class="font-bold text-sm dark:text-white">Fresh Bowl Kitchen</h4>
+                       <span class="text-[10px] uppercase font-bold text-health-600 tracking-wider">1.5 MI</span>
+                     </div>
+                     <p class="text-[11px] text-slate-500 mb-2 leading-relaxed">Gentle soups, plain rice and teas.</p>
+                     <button onclick="document.getElementById('food-modal').classList.remove('hidden')" class="px-3 py-1.5 bg-navy-900 hover:bg-navy-800 text-white rounded-full text-[10px] font-bold shadow-sm transition-colors">View Menu</button>
+                  </div>
+               </div>
+               <div class="flex gap-4 p-4 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:border-health-400 transition-colors">
+                  <div class="h-10 w-10 text-health-600 bg-health-50 dark:bg-health-900/30 rounded-full flex items-center justify-center font-bold text-xl ring-1 ring-health-100 flex-shrink-0">🩺</div>
+                  <div>
+                     <div class="flex items-center justify-between mb-1">
+                       <h4 class="font-bold text-sm dark:text-white">Rapid Nurse Visit</h4>
+                       <span class="text-[10px] uppercase font-bold text-health-600 tracking-wider">At Home</span>
+                     </div>
+                     <p class="text-[11px] text-slate-500 mb-2 leading-relaxed">Book a certified RN to evaluate you.</p>
+                     <button onclick="document.getElementById('nurses-modal').classList.remove('hidden')" class="px-3 py-1.5 bg-navy-900 hover:bg-navy-800 text-white rounded-full text-[10px] font-bold shadow-sm transition-colors">Book Nurse</button>
+                  </div>
+               </div>
+               <div class="flex gap-4 p-4 rounded-xl border dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 hover:border-health-400 transition-colors">
+                  <div class="h-10 w-10 text-health-600 bg-health-50 dark:bg-health-900/30 rounded-full flex items-center justify-center font-bold text-xl ring-1 ring-health-100 flex-shrink-0">👨‍⚕️</div>
+                  <div>
+                     <div class="flex items-center justify-between mb-1">
+                       <h4 class="font-bold text-sm dark:text-white">Specialist Clinics</h4>
+                       <span class="text-[10px] uppercase font-bold text-health-600 tracking-wider">Book Now</span>
+                     </div>
+                     <p class="text-[11px] text-slate-500 mb-2 leading-relaxed">Find specialized doctors directly.</p>
+                     <button onclick="document.getElementById('doctors-modal').classList.remove('hidden')" class="px-3 py-1.5 bg-navy-900 hover:bg-navy-800 text-white rounded-full text-[10px] font-bold shadow-sm transition-colors">Find Doctor</button>
+                  </div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legacy Modals included inside DOM to avoid breaking previous feature requirements -->
+  <div id="nurses-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-xl p-6 text-center max-h-[85vh] overflow-y-auto relative">
+       <button onclick="document.getElementById('nurses-modal').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-full font-bold">X</button>
+       <div class="h-16 w-16 mx-auto bg-health-100 dark:bg-health-900/30 text-health-600 rounded-full flex items-center justify-center mb-4"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M15 6h6"/><path d="M18 3v6"/></svg></div>
+       <h2 class="text-2xl font-bold dark:text-white mb-6">Nursing Directory Active</h2>
+       <div id="nurses-list-container" class="space-y-3 text-left"></div>
+    </div>
+  </div>
+
+  <div id="food-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-3xl p-6 text-center max-h-[85vh] overflow-y-auto relative">
+       <button onclick="document.getElementById('food-modal').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-full font-bold">X</button>
+       <div class="h-12 w-12 mx-auto bg-health-100 dark:bg-health-900/30 text-health-600 rounded-full flex items-center justify-center mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 15 3.3 3.3a4.24 4.24 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/></svg></div>
+       <h2 class="text-2xl font-bold dark:text-white mb-6">Food Asset Registry</h2>
+       <div id="food-list-container" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <div id="doctors-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-4xl p-6 text-center max-h-[85vh] overflow-y-auto relative">
+       <button onclick="document.getElementById('doctors-modal').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-full font-bold">X</button>
+       <div class="h-12 w-12 mx-auto bg-health-100 dark:bg-health-900/30 text-health-600 rounded-full flex items-center justify-center mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2zM9 14h6m-3-3v6"/></svg></div>
+       <h2 class="text-2xl font-bold dark:text-white mb-2">Book an Appointment</h2>
+       <p class="text-slate-500 mb-6">Select from specialized doctors available nearby.</p>
+       <div id="doctors-list-container" class="space-y-4 text-left"></div>
+    </div>
+  </div>
+
+  <div id="precautions-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl w-full max-w-3xl p-6 text-center max-h-[85vh] overflow-y-auto relative">
+       <button onclick="document.getElementById('precautions-modal').classList.add('hidden')" class="absolute top-4 right-4 p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-full font-bold">X</button>
+       <div class="h-12 w-12 mx-auto bg-health-100 dark:bg-health-900/30 text-health-600 rounded-full flex items-center justify-center mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
+       <h2 class="text-2xl font-bold dark:text-white mb-2">Health Precautions</h2>
+       <p class="text-slate-500 mb-6">Standard immediate prevention protocols for common symptoms.</p>
+       <div id="precautions-list-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"></div>
+    </div>
+  </div>
+
+  <script src="http://localhost:3000/js/app.js"></script>
+</body>
+</html>
+

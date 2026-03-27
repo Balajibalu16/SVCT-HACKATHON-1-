@@ -1,0 +1,102 @@
+[
+  {
+    "name": "CityCare Emergency Center",
+    "type": "Hospital",
+    "city": "Mumbai",
+    "address": "102 Riverfront Road",
+    "phone": "+91 22 4001 1100",
+    "hours": "Open 24 hours",
+    "lat": 19.082,
+    "lon": 72.881
+  },
+  {
+    "name": "Lifeline Medical Hub",
+    "type": "Hospital",
+    "city": "Delhi",
+    "address": "44 Sunrise Avenue",
+    "phone": "+91 11 4102 7788",
+    "hours": "Open 24 hours",
+    "lat": 28.61,
+    "lon": 77.215
+  },
+  {
+    "name": "AsterCare Clinic",
+    "type": "Clinic",
+    "city": "Bengaluru",
+    "address": "12 MG Road",
+    "phone": "+91 80 4099 2300",
+    "hours": "8:00 AM - 10:00 PM",
+    "lat": 12.973,
+    "lon": 77.609
+  },
+  {
+    "name": "Sunrise Multi-Specialty",
+    "type": "Hospital",
+    "city": "Hyderabad",
+    "address": "7 Jubilee Hills",
+    "phone": "+91 40 4010 2244",
+    "hours": "Open 24 hours",
+    "lat": 17.425,
+    "lon": 78.406
+  },
+  {
+    "name": "Harbor Health Centre",
+    "type": "Clinic",
+    "city": "Chennai",
+    "address": "90 Marina View",
+    "phone": "+91 44 4025 1188",
+    "hours": "7:00 AM - 9:00 PM",
+    "lat": 13.082,
+    "lon": 80.269
+  },
+  {
+    "name": "Riverbend Medical",
+    "type": "Hospital",
+    "city": "Kolkata",
+    "address": "28 Park Street",
+    "phone": "+91 33 4121 8800",
+    "hours": "Open 24 hours",
+    "lat": 22.57,
+    "lon": 88.36
+  },
+  {
+    "name": "PulseCare Clinic",
+    "type": "Clinic",
+    "city": "Pune",
+    "address": "16 Koregaon Park",
+    "phone": "+91 20 4019 5566",
+    "hours": "8:00 AM - 9:00 PM",
+    "lat": 18.534,
+    "lon": 73.888
+  },
+  {
+    "name": "GreenCross Hospital",
+    "type": "Hospital",
+    "city": "Ahmedabad",
+    "address": "11 Ashram Road",
+    "phone": "+91 79 4088 1100",
+    "hours": "Open 24 hours",
+    "lat": 23.03,
+    "lon": 72.57
+  },
+  {
+    "name": "Jaipur CarePoint",
+    "type": "Clinic",
+    "city": "Jaipur",
+    "address": "5 MI Road",
+    "phone": "+91 141 409 2211",
+    "hours": "8:00 AM - 10:00 PM",
+    "lat": 26.915,
+    "lon": 75.79
+  },
+  {
+    "name": "Capital Health Plaza",
+    "type": "Hospital",
+    "city": "Lucknow",
+    "address": "19 Hazratganj",
+    "phone": "+91 522 410 1000",
+    "hours": "Open 24 hours",
+    "lat": 26.85,
+    "lon": 80.945
+  }
+]
